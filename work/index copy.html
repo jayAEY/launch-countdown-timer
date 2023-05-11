@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Launch countdown timer</title>
+
+  <style>
+/* - Grayish blue:  
+- Soft red: hsl(345, 95%, 68%)
+
+- White: hsl(0, 0%, 100%)
+- Dark desaturated blue: hsl(236, 21%, 26%)
+- Very dark blue: hsl(235, 16%, 14%)
+- Very dark (mostly black) blue: hsl(234, 17%, 12%) */
+  @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@700&display=swap');
+    *,
+    *::after,
+    *::before {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    :root {
+      --current-number: 55;
+      --next-number: calc(var(--current-number)-1);
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+      background-image: url('/images/bg-stars.svg');
+      background-color: hsl(234, 17%, 12%);
+      font-size: 14px;
+      font-family: 'Red Hat Text', sans-serif;
+      text-transform: uppercase;
+      color: white;
+      text-align: center;
+      align-items: center;
+    }
+
+    #hills {
+      width: 100%;
+      height: 197px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    h2 {
+      letter-spacing: 10px;
+      margin-top: 130px;
+    }
+
+    #timer {
+      display: inline-flex;
+      margin: 60px 0;
+      z-index: 0;
+      color: hsl(345, 95%, 68%);
+      font-size: 3rem;
+    }  
+
+    .timer-box {
+      display: inline-flex;
+      flex-direction: column;
+      background-color:hsl(236, 21%, 26%);
+      /* background-color: #8385A9; */
+      /* width: 80px; */
+      /* height: 80px; */
+      /* margin: 0 10px; */
+      border-radius: 4px; 
+      perspective: 200px;
+      box-shadow: 0 10px 8px rgba(0, 0, 0, 0.442);
+    }
+
+    .next-timer-number {
+      position: absolute;
+      font-size: 40px;
+      color: hsl(345, 95%, 68%);
+      /* color: red; */
+      /* background-color: rgba(255, 255, 0, 0.178); */
+      height: 50%;
+      width: 100%;
+      padding-top: 13.7px;
+      /* padding-left: 0.5px; */
+      overflow: hidden;
+    }
+
+    .current-timer-number {
+      position: absolute;
+      font-size: 40px;
+      /* background-color: rgba(28, 255, 3, 0.178); */
+      top: 50%;
+      height: 50%;
+      width: 100%;
+      line-height: 0;
+
+      overflow: hidden;
+    }
+  
+    .timer-box {
+      position: relative; 
+      background-color:hsl(236, 21%, 26%);
+      width: 80px;
+      height: 80px;
+      margin: 0 10px;
+      border-radius: 4px; 
+      perspective: 200px;
+      box-shadow: 0 10px 8px rgba(0, 0, 0, 0.442);
+    }
+
+    .timer-box-top {
+      position: relative;
+      background-color: hsla(235, 21%, 21%);
+      /* background-color: rgba(127, 255, 212, 0.287); */
+      /* overflow: hidden; */
+      width: 80px;
+      height: 40px;
+      border-radius: 4px;
+      /* transform: rotateX(180deg); */
+      transform-origin: bottom;
+      text-align: center;
+      /* z-index: 2; */
+    }  
+
+    .timer-box-top-to-bottom {
+      position: relative;
+      /* content: "44"; */
+      /* content: "55"; */
+      font-size: 40px;
+      background-color:hsl(236, 21%, 26%);
+      /* background-color: rgba(255, 0, 0, 0.25); */
+      width: 80px;
+      height: 40px;
+      border-radius: 4px;
+      /* transform: rotateX(-180deg); */
+      transform: rotateX(180deg);
+      /* transform: rotateX(0deg); */
+      transform-origin: top;
+      animation: top-to-bottom-flip 1s infinite ease-in-out ; 
+    }
+
+    /* before is after flip */
+    .timer-box-top-to-bottom::before {
+      line-height: 0;
+      position: absolute;
+      /* background-color: rgba(255, 221, 0, 0.288); */
+      left: 0;
+      content: "";
+      height: 50%;
+      width: 100%;
+      overflow: hidden;
+      animation: number-change-bottom 1s infinite;
+      /* animation: number-change 1s reverse infinite; */
+    }
+
+    /* after is inside of flip */
+    .timer-box-top-to-bottom::after {
+      /* color: hsl(345, 51%, 19%); */
+      position: absolute;
+      /* background-color: rgba(255, 221, 0, 0.288); */
+      /* color: #83a987ab; */
+      left: 0;
+      content: "";
+      height: 50%;
+      width: 100%;
+      transform: scale(1, -1);
+      padding-bottom: 26.5px;
+      overflow: hidden;
+      animation: number-change-top 1s infinite;
+      /* animation: number-change 1s infinite; */
+
+    }
+
+    #timer p {
+      position: absolute;
+      left: 12px;
+      top: 90px;
+      color: hsl(237, 18%, 59%);
+      font-size: 8px;
+      letter-spacing: 3px;
+    }
+
+    #sm-icons {
+      display: flex;
+      position: fixed;
+      bottom: 60px;
+      justify-content: center;
+      right: 0;
+      left: 0;
+      gap: 35px;
+      padding: auto;
+    }
+
+    svg {
+      fill:#8385A9;
+    }
+
+    @keyframes top-to-bottom-flip {
+      0% {
+        background-color: hsla(235, 21%, 21%);
+      }
+      52% {
+        /* background-color:hsl(236, 21%, 26%); */
+        background-color: hsla(235, 21%, 21%);
+        
+      }
+      53%{ 
+        /* background-color: hsla(235, 21%, 21%); */
+        background-color:hsl(236, 21%, 26%);
+        /* content: "54"; */
+
+      }
+      100% {
+        transform: rotateX(0deg);
+        /* background-color: hsla(235, 21%, 21%); */
+      }
+    }
+
+    /* @keyframes number-change {
+      0% { content: var(--current-number);}
+      48% { content: var(--current-number);}
+      52% { content: var(--next-number);}
+      100% { content: var(--next-number);}      
+    } */
+
+    @keyframes number-change-top {
+      /* 0% { content: "55";}
+      48% { content: "55";}
+      52% { content: "";}
+      100% { content: "";}       */
+      0% { content: var(--current-number);}
+      48% { content: var(--current-number);}
+      52% { content: "";}
+      100% { content: "";}
+    }
+
+    @keyframes number-change-bottom {
+      /* 0% { content: "";}
+      48% { content: "";}
+      52% { content: "54";}
+      100% { content: "54";}       */
+      0% { content: "";}
+      48% { content: "";}
+      52% { content:  var(--next-number);}
+      100% { content:  var(--next-number);}  
+    }
+
+    /* @keyframes number-flip {
+      0% {
+        opacity: 1;
+      }
+      52% {
+        opacity: 1;
+      }
+      53% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 0;
+      }
+    } */
+
+    /* @keyframes next-number {
+      0% {
+        opacity: 0;
+      }
+      52% {
+        opacity: 0;
+      }
+      53% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 1;
+      }
+    }  */
+
+  </style>
+</head>
+<body>
+<main>
+  <img id= "hills" src="./images/pattern-hills.svg">
+  <h2>We're launching soon</h2>
+    <!-- <div id="timer">
+      <div id="days" class="timer-box">
+        <div class="timer-box-bottom">
+          <h1 class="timer-number">08</h1>
+        </div>
+        <div class="timer-box-top-to-bottom">
+          <h1 class="next-timer-number-bottom next-timer-number">07</h1>
+          <h1 class="timer-number">08</h1>
+        </div>
+        <h1 class="next-timer-number">07</h1>
+        <p>Days</p>
+      </div>
+      <div id="hours" class="timer-box">
+        <div class="timer-box-bottom">
+          <h1 class="timer-number">23</h1>
+        </div>
+        <div class="timer-box-top-to-bottom">
+          <h1 class="next-timer-number-bottom next-timer-number">22</h1>
+          <h1 class="timer-number">23</h1>
+        </div>
+        <h1 class="next-timer-number">22</h1>
+        <p>Hours</p>
+      </div>
+      <div id="minutes" class="timer-box">
+        <div class="timer-box-bottom">
+          <h1 class="timer-number">55</h1>
+        </div>
+        <div class="timer-box-top-to-bottom">
+          <h1 class="next-timer-number-bottom next-timer-number">54</h1>
+          <h1 class="timer-number">55</h1>
+        </div>
+        <h1 class="next-timer-number">54</h1>
+        <p>Minutes</p>
+      </div>
+      <div id="seconds" class="timer-box">
+        <div class="timer-box-bottom">
+          <h1 class="timer-number">41</h1>
+        </div>
+        <div class="timer-box-top-to-bottom"> 
+          <h1 class="next-timer-number-bottom next-timer-number">40</h1> 
+          <h1 class="timer-number">41</h1>
+        </div>
+        <h1 class="next-timer-number">40</h1> 
+        <p>Seconds</p> 
+      </div> -->
+    <div id="timer">
+      <div id="seconds" class="timer-box">
+        <div class="timer-box-top">
+        </div>
+           <h1 class="next-timer-number">54</h1> 
+          <h1 class="current-timer-number">55</h1>
+        <div class="timer-box-top-to-bottom"> 
+        </div>
+        <p>Seconds</p> 
+      </div>
+    </div>  
+
+    <div id="sm-icons">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </div>
+</main>  
+<script>
+
+// next number: .timer-box-top-to-bottom::after and next-timer-number
+// current number: current-timer-number and .timer-box-top-to-bottom::before 
+
+  let secondsElements = document.querySelector("#seconds")
+  let secondsCurrent = secondsElements.querySelectorAll(".current-timer-number")
+  let secondsNext = secondsElements.querySelectorAll(".next-timer-number")
+
+  let secondsTop = secondsElements.querySelector(".timer-box-top-to-bottom")
+
+
+  // let daysElements = document.querySelector("#days")
+  // let daysCurrent = daysElements.querySelectorAll(".timer-number")
+  // let daysNext = daysElements.querySelectorAll(".next-timer-number")
+
+  // let hoursElements = document.querySelector("#hours")
+  // let hoursCurrent = hoursElements.querySelectorAll(".timer-number")
+  // let hoursNext = hoursElements.querySelectorAll(".next-timer-number")
+
+  // let minutesElements = document.querySelector("#minutes")
+  // let minutesCurrent = minutesElements.querySelectorAll(".timer-number")
+  // let minutesNext = minutesElements.querySelectorAll(".next-timer-number")
+
+  // let minutesTop = minutesElements.querySelector(".timer-box-top-to-bottom")
+  // let minutesNextPanel = minutesElements.querySelector(".next-timer-number-bottom")
+  // let minutesNumberBottom = minutesElements.querySelector(".timer-box-bottom").querySelector(".timer-number")
+  // let minutesNumberTopToBottom = minutesElements.querySelector(".timer-box-top-to-bottom").querySelector(".timer-number")
+
+  // let secondsElements = document.querySelector("#seconds")
+  // let secondsCurrent = secondsElements.querySelectorAll(".timer-number")
+  // let secondsNext = secondsElements.querySelectorAll(".next-timer-number")
+
+  // let secondsTop = secondsElements.querySelector(".timer-box-top-to-bottom")
+  // let secondsNextPanel = secondsElements.querySelector(".next-timer-number-bottom")
+  // let secondsNumberBottom = secondsElements.querySelector(".timer-box-bottom").querySelector(".timer-number")
+  // let secondsNumberTopToBottom = secondsElements.querySelector(".timer-box-top-to-bottom").querySelector(".timer-number")
+
+
+  // let days = 691200
+  // let hours = 82800
+  // let minutes = 3300
+
+  // let days = 08
+  // let hours = 23
+  // let minutes = 55
+  // let seconds = 41
+
+  // let days = 00
+  // let hours = 00
+  // let minutes = 0
+  // let seconds = 5
+  
+  // let nextDays = 07
+  // let nextHours = 0
+  // let nextMinutes = 0
+  // let nextSeconds = seconds - 1
+
+  // setInterval(time, 1000)
+
+  // function time() {
+    // animations()
+    // seconds--
+    // nextSeconds--
+
+    // if (seconds < 0) {
+    //   seconds = 59
+    //   minutes --
+    //   if (minutes < 0) {
+    //     minutes = 59 
+    //     hours --
+    //     if (hours < 0) {
+    //       hours = 23 
+    //       days --
+    //     }
+    //   }
+    // }
+    // if (nextSeconds < 0) {
+    //   nextSeconds = 59
+    //   nextMinutes --
+    //   if (nextMinutes < 0) {
+    //     nextMinutes = 59 
+    //     nextHours --
+    //     if (nextHours < 0) {
+    //      nextHours = 23 
+    //      nextDays --
+    //     }
+    //   }
+    // }
+    // // secondsCurrent.forEach(element => element.textContent = seconds) 
+    // secondsNext.forEach(element => element.textContent = nextSeconds) 
+    // if (days < 0) days = 08, hours = 23, minutes = 55, seconds = 41
+   
+    // console.log(days, hours, minutes, seconds)
+    // console.log(nextDays, nextHours, nextMinutes, nextSeconds)
+  // }
+
+  //   .timer-box-top-to-bottom 
+  //   .next-timer-number-bottom
+  //   .timer-number
+    // topToBottom.forEach(element => {
+    //   element.style.animationPlayState = "paused;"
+    //   // console.log(element)
+    // })
+
+    // nextNumberBottom.forEach(element => {
+    //   element.style.animationPlayState = "paused;"
+    //   // console.log(element)
+    // })
+
+    // timerNumbers.forEach(element => {
+    //   element.style.animationPlayState = "paused;"
+    //   // console.log(element.style.animationPlayState = "running") 
+    // })
+
+  // function animations() {
+  //   function handleSeconds() {
+  //     function changeSeconds() {
+  //       if ( secondsTop.style.animationPlayState = "paused" ) {
+  //       secondsTop.style.animationPlayState = "running"
+  //       secondsNextPanel.style.animationPlayState = "running"
+  //       secondsNumberBottom.style.animationPlayState = "running"
+  //       secondsNumberTopToBottom.style.animationPlayState = "running"
+  //       secondsCurrent.forEach(element => element.textContent = seconds) 
+  //       secondsNext.forEach(element => element.textContent = nextSeconds)
+  //       } else if ( secondsTop.style.animationPlayState = "running" ) {
+  //         function pauseSeconds() {
+  //           secondsTop.style.animationPlayState = "paused"
+  //           secondsNextPanel.style.animationPlayState = "paused"
+  //           secondsNumberBottom.style.animationPlayState = "paused"
+  //           secondsNumberTopToBottom.style.animationPlayState = "paused"
+                    
+  //         }
+  //       setTimeout(pauseSeconds, 500)
+  //       }
+  //       // function pauseSeconds() {
+  //       //   secondsTop.style.animationPlayState = "paused"
+  //       //   secondsNextPanel.style.animationPlayState = "paused"
+  //       //   secondsNumberBottom.style.animationPlayState = "paused"
+  //       //   secondsNumberTopToBottom.style.animationPlayState = "paused"
+  //       // }
+  //       // pauseSeconds()
+  //       // changeSeconds()
+  //       // setTimeout(pauseSeconds, 1000)
+
+  //     }
+  //     secondsCurrent[0].addEventListener('change', changeSeconds())
+  //   }
+
+  //   // function handleMinutes() {
+  //   //   function changeMinutes() {
+  //   //     minutesTop.style.animationPlayState = "running"
+  //   //     minutesNextPanel.style.animationPlayState = "running"
+  //   //     minutesNumberBottom.style.animationPlayState = "running"
+  //   //     minutesNumberTopToBottom.style.animationPlayState = "running"
+  //   //     minutesCurrent.forEach(element => element.textContent = minutes) 
+  //   //     minutesNext.forEach(element => element.textContent = nextMinutes)
+  //   //     function pauseMinutes() {
+  //   //       minutesTop.style.animationPlayState = "paused"
+  //   //       minutesNextPanel.style.animationPlayState = "paused"
+  //   //       minutesNumberBottom.style.animationPlayState = "paused"
+  //   //       minutesNumberTopToBottom.style.animationPlayState = "paused"
+  //   //     }
+  //   //     setInterval(pauseMinutes,1000)
+  //   //   }
+  //   //   minutesCurrent[0].addEventListener('change', changeMinutes())
+  //   //   // console.log(minutesCurrent[0].innerHTML)
+  //   // }
+
+  //   handleSeconds()
+  //   // handleMinutes()
+  // }
+
+</script>  
+</body>
+</html>
