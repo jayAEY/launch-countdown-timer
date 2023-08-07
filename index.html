@@ -5,236 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- displays site properly based on user's device -->
-
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon.png">
+  <link rel="stylesheet" href="./styles.css">
+  <script></script>
   <title>Frontend Mentor | Launch countdown timer</title>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@700&display=swap');
-
-    *,
-    *::after,
-    *::before {
-      box-sizing: border-box;
-      padding: 0;
-      margin: 0;
-    }
-
-    main {
-      display: flex;
-      flex-direction: column;
-      width: 100vw;
-      height: 100vh;
-      background-image: url('./images/bg-stars.svg');
-      background-color: hsl(234, 17%, 12%);
-      font-family: 'Red Hat Text', sans-serif;
-      text-transform: uppercase;
-      color: white;
-      text-align: center;
-      align-items: center;
-    }
-
-    #hills {
-      width: 100%;
-      height: 197px;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-    }
-
-    h1 {
-      letter-spacing: 6px;
-      margin: 140px 10px 60px 10px;
-      font-size: 1.5rem;
-    }
-
-    .timer {
-      display: flex;
-      gap: 16px;
-    }
-
-    .timer-box {
-      position: relative;
-      color: hsla(345, 95%, 68%);
-      height: 80px;
-      width: 85px;
-      background-color: hsl(236, 21%, 26%);
-      border-radius: 8px;
-      text-align: center;
-      font-size: 2.4rem;
-      line-height: 2;
-      box-shadow: 0 10px 8px rgba(0, 0, 0, 0.442);
-
-    }
-
-    .timer-box::before,
-    .timer-box::after {
-      content: "";
-      position: absolute;
-      z-index: 6;
-      top: calc(50% - 5px);
-      background-color: hsl(234, 17%, 12%);
-      border-radius: 50%;
-      width: 10px;
-      height: 10px;
-    }
-
-    .timer-box::before {
-      left: -5px;
-    }
-
-    .timer-box::after {
-      right: -5px;
-    }
-
-    .timer-box>div {
-      position: absolute;
-      left: 0;
-      right: 0;
-    }
-
-    .timer-top {
-      z-index: 3;
-      background-color: hsl(235, 21%, 21%);
-      transform-origin: 50% 100%;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
-      transform: perspective(200px);
-    }
-
-    .timer-box .timer-top::after,
-    .timer-box .timer-bottom-back::after {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 100%;
-      border-bottom: 1px solid hsl(234, 17%, 12%);
-    }
-
-    .timer-bottom {
-      z-index: 1;
-      border-radius: 8px;
-    }
-
-    .timer-bottom::before {
-      content: '';
-      position: absolute;
-      display: block;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 50%;
-      border-radius: 8px;
-      background-color: hsl(235, 20%, 25%);
-    }
-
-    .timer-bottom-back {
-      z-index: 2;
-      top: 0;
-      height: 50%;
-      border-radius: 8px;
-      overflow: hidden;
-      background-color: hsl(235, 21%, 21%);
-    }
-
-    .timer-bottom-back div {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      margin: auto;
-    }
-
-    .timer-top,
-    .timer-top-back {
-      height: 50%;
-      overflow: hidden;
-      backface-visibility: hidden;
-    }
-
-    .timer-top-back {
-      z-index: 4;
-      bottom: 0;
-      transform-origin: 50% 0;
-      background-color: hsl(235, 20%, 25%);
-      border-radius: 8px;
-      transform: perspective(200px) rotateX(180deg);
-    }
-
-    .timer-top-back div {
-      position: absolute;
-      top: -100%;
-      left: 0;
-      right: 0;
-      margin: auto;
-    }
-
-    .timer-box p {
-      position: relative;
-      top: 90px;
-      color: hsl(237, 18%, 59%);
-      font-size: 8px;
-      letter-spacing: 3px;
-    }
-
-    #sm-icons {
-      display: flex;
-      position: fixed;
-      bottom: 55px;
-      justify-content: center;
-      right: 0;
-      left: 0;
-      gap: 35px;
-      padding: auto;
-    }
-
-    svg {
-      fill: #8385A9;
-    }
-
-    a:hover {
-      opacity: 0.6;
-    }
-
-    @media screen and (min-width: 600px) {
-      h1 {
-        font-size: 1.4rem;
-        margin: 120px 10px 80px 10px;
-      }
-
-      .timer {
-        gap: 30px;
-      }
-
-      .timer-box {
-        height: 120px;
-        width: 120px;
-        font-size: 4rem;
-        line-height: 1.8;
-      }
-
-      .timer-box p {
-        position: relative;
-        top: 130px;
-        color: hsl(237, 18%, 59%);
-        font-size: 12px;
-      }
-    }
-  </style>
 </head>
 
 <body>
-
   <main>
-    <img id="hills" alt="hills in background" src="./images/pattern-hills.svg">
-    <h1>We're launching soon</h1>
+    <h1 id="launch-text">We're launching soon</h1>
 
-    <div class="timer">
+    <div id="timer">
 
       <div id="days" class="timer-box">
         <div class="timer-top">14</div>
@@ -283,8 +64,11 @@
         </div>
         <p>seconds</p>
       </div>
-
     </div>
+
+    <button id="launch-button" onclick="init(5)">Launch Now 🚀</button>
+
+    <img id="hills" alt="hills in background" src="./images/pattern-hills.svg">
 
     <div id="sm-icons">
       <a href="#" aria-label="facebook"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
@@ -304,99 +88,10 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"
     integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script>
-    const days = document.querySelector('#days')
-    const hours = document.querySelector('#hours')
-    const minutes = document.querySelector('#minutes')
-    const seconds = document.querySelector('#seconds')
-
-    let timeLeft = {
-      d: 0,
-      h: 0,
-      m: 0,
-      s: 0,
-    }
-
-    let totalSeconds;
-
-    function init() {
-      totalSeconds = 1209600;
-      setTimeLeft()
-      let interval = setInterval(() => {
-        countTime();
-        if (totalSeconds < 0) {
-          clearInterval(interval)
-        }
-      }, 1000)
-    }
-
-    function countTime() {
-      if (totalSeconds > 0) {
-        --timeLeft.s;
-        if (timeLeft.m >= 0 && timeLeft.s < 0) {
-          timeLeft.s = 59;
-          --timeLeft.m;
-          if (timeLeft.h >= 0 && timeLeft.m < 0) {
-            timeLeft.m = 59;
-            --timeLeft.h;
-            if (timeLeft.d >= 0 && timeLeft.h < 0) {
-              timeLeft.h = 23;
-              --timeLeft.d
-            }
-          }
-        }
-      }
-      --totalSeconds
-      printTime();
-    }
-
-    function printTime() {
-      animateFlip(days, timeLeft.d)
-      animateFlip(hours, timeLeft.h)
-      animateFlip(minutes, timeLeft.m)
-      animateFlip(seconds, timeLeft.s)
-    }
-
-    function animateFlip(element, value) {
-      const valueInDom = element.querySelector('.timer-bottom-back').innerText;
-      const currentValue = value < 10 ? '0' + value : '' + value;
-
-      if (valueInDom === currentValue) return;
-
-      element.querySelector('.timer-top-back div').innerText = currentValue;
-      element.querySelector('.timer-bottom-back div').innerText = currentValue;
-
-      gsap.to(element.querySelector('.timer-top'), 0.7, {
-        rotationX: '-180deg',
-        transformPerspective: 300,
-        ease: Quart.easeOut,
-        onComplete: function () {
-          element.querySelector('.timer-top').innerText = currentValue;
-          element.querySelector('.timer-bottom').innerText = currentValue;
-          gsap.set(element.querySelector('.timer-top'), { rotationX: 0 })
-        }
-      })
-
-      gsap.to(element.querySelector('.timer-top-back'), 0.7, {
-        rotationX: '0',
-        transformPerspective: 300,
-        ease: Quart.easeOut,
-        clearProps: 'all'
-      })
-
-    }
-
-    function setTimeLeft() {
-      timeLeft.d = Math.floor(totalSeconds / (60 * 60 * 24));
-      timeLeft.h = Math.floor(totalSeconds / (60 * 60) % 24);
-      timeLeft.m = Math.floor(totalSeconds / (60) % 60);
-      timeLeft.s = Math.floor(totalSeconds % (60));
-    }
-
-    init()
-
-  </script>
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script src="./script.js"></script>
 
 </body>
 

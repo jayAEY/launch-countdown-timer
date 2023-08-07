@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@700&display=swap');
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    min-width: 410px;
+    width: 100vw;
+    min-height: 660px;
+    height: 100vh;
+    background-image: url('./images/bg-stars.svg');
+    background-color: hsl(234, 17%, 12%);
+    font-family: 'Red Hat Text', sans-serif;
+    text-transform: uppercase;
+    color: white;
+    text-align: center;
+    align-items: center;
+}
+
+#hills {
+    width: 100%;
+    height: 197px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#launch-text {
+    letter-spacing: 6px;
+    margin: 140px 10px 60px 10px;
+    font-size: 1.5rem;
+}
+
+#emojis {
+    font-size: 50pt;
+}
+
+#timer {
+    display: flex;
+    gap: 16px;
+}
+
+.timer-box {
+    position: relative;
+    color: hsla(345, 95%, 68%);
+    height: 80px;
+    width: 85px;
+    background-color: hsl(236, 21%, 26%);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 2.4rem;
+    line-height: 2;
+    box-shadow: 0 10px 8px rgba(0, 0, 0, 0.442);
+}
+
+.timer-box::before,
+.timer-box::after {
+    content: "";
+    position: absolute;
+    z-index: 6;
+    top: calc(50% - 5px);
+    background-color: hsl(234, 17%, 12%);
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+}
+
+.timer-box::before {
+    left: -5px;
+}
+
+.timer-box::after {
+    right: -5px;
+}
+
+.timer-box>div {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.timer-top {
+    z-index: 3;
+    background-color: hsl(235, 21%, 21%);
+    transform-origin: 50% 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    transform: perspective(200px);
+}
+
+.timer-box .timer-top::after,
+.timer-box .timer-bottom-back::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid hsl(234, 17%, 12%);
+}
+
+.timer-bottom {
+    z-index: 1;
+    border-radius: 8px;
+}
+
+.timer-bottom::before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    border-radius: 8px;
+    background-color: hsl(235, 20%, 25%);
+}
+
+.timer-bottom-back {
+    z-index: 2;
+    top: 0;
+    height: 50%;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: hsl(235, 21%, 21%);
+}
+
+.timer-bottom-back div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.timer-top,
+.timer-top-back {
+    height: 50%;
+    overflow: hidden;
+    backface-visibility: hidden;
+}
+
+.timer-top-back {
+    z-index: 4;
+    bottom: 0;
+    transform-origin: 50% 0;
+    background-color: hsl(235, 20%, 25%);
+    border-radius: 8px;
+    transform: perspective(200px) rotateX(180deg);
+}
+
+.timer-top-back div {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.timer-box p {
+    position: relative;
+    top: 90px;
+    color: hsl(237, 18%, 59%);
+    font-size: 8px;
+    letter-spacing: 3px;
+}
+
+#launch-button {
+    display: flex;
+    margin-top: 60px;
+    padding: 8px;
+    font-size: 7pt;
+    text-transform: uppercase;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    background-color: #8385A9;
+    border: none;
+    border-radius: 2px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 1;
+}
+
+#launch-button:hover {
+    scale: 1.02;
+    background-color: #6a6c8b;
+    ;
+}
+
+#sm-icons {
+    display: flex;
+    position: fixed;
+    bottom: 55px;
+    justify-content: center;
+    right: 0;
+    left: 0;
+    gap: 35px;
+    padding: auto;
+}
+
+svg {
+    fill: #8385A9;
+}
+
+a {
+    transition: all 0.2s;
+}
+
+a:hover {
+    scale: 1.1;
+    opacity: 0.6;
+}
+
+@media screen and (min-width: 600px) {
+    h1 {
+        font-size: 1.4rem;
+        margin: 120px 10px 80px 10px;
+    }
+
+    #timer {
+        gap: 30px;
+    }
+
+    .timer-box {
+        height: 120px;
+        width: 120px;
+        font-size: 4rem;
+        line-height: 1.8;
+    }
+
+    .timer-box p {
+        position: relative;
+        top: 130px;
+        color: hsl(237, 18%, 59%);
+        font-size: 12px;
+    }
+}
