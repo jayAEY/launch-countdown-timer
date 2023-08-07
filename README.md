@@ -40,7 +40,7 @@ Users should be able to:
 - CSS Grid
 - Mobile-first workflow
 - [GSAP](https://greensock.com/gsap/) - JS animation library
-
+- [canvas-confetti](https://www.npmjs.com/package/canvas-confetti) - For countdown finish animations
 ### Continued development
 
 I spent alot of time working on the animations. I'll definitely spend more time working with them in the future.
